@@ -3,13 +3,18 @@
 #include <vector>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
-#include "player_data.h"
+#ifndef CARD_INFO_H
+#define CARD_INFO_H
+#include "player_info.h"
 
 struct card{
 
     int value; //number on card
     char suit; //suit of card
+
+    card(int value, char suit) : value{value}, suit{suit} {}
 
 };
 
@@ -19,7 +24,7 @@ void deal_cards(player* p1, player* p2){
     srand(time(0));
 
     std::vector<card>deck;
-    std::vector<card>suffled_deck {54, 0};
+    std::vector<card>suffled_deck {54, {0, '\0'}};
 
     //First we get the deck out of the package 
 
@@ -41,11 +46,11 @@ void deal_cards(player* p1, player* p2){
 
         int new_pos = rand()%54 + 1;
 
-        while(shuffled_deck[new_pos] == 0){ //if already taken
+        while(shuffled_deck[new_pos].value == 0){ //if already taken
             new_pos = rand()%54 + 1; //roll new pos 
         }
 
-        shuffled_deck[new_pos] = shuffled[i];
+        shuffled_deck[new_pos] = shuffled_deck[i];
 
     }
 
@@ -63,4 +68,6 @@ void deal_cards(player* p1, player* p2){
         p2.cards.push(shuffled_deck[i]);
     }
 
-}.
+}
+
+#endif

@@ -1,8 +1,8 @@
 
 #include <iostream>
 
-#include "card_data.h"
-#include "player_data.h"
+#include "card_info.h"
+#include "player_info.h"
 
 using namespace std;
 
@@ -64,7 +64,7 @@ void play(){
                 p2.add_card(player_card);
                 p2.add_card(ai_card);
             }
-            
+
         }
 
     }

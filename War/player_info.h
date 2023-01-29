@@ -3,7 +3,9 @@
 #include <vector>
 #include <queue>
 
-#include "card_data.h"
+#ifndef PLAYER_INFO_H
+#define PLAYER_INFO_H
+#include "card_info.h"
 
 struct player{
 
@@ -26,3 +28,5 @@ struct player{
     }
 
 };
+
+#endif
