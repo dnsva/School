@@ -1,5 +1,2 @@
 /Users/anna/Desktop/main/schoolcode/School/build/CMakeFiles/edit_cache.dir
 /Users/anna/Desktop/main/schoolcode/School/build/CMakeFiles/rebuild_cache.dir
-/Users/anna/Desktop/main/schoolcode/School/build/War/CMakeFiles/test.dir
-/Users/anna/Desktop/main/schoolcode/School/build/War/CMakeFiles/edit_cache.dir
-/Users/anna/Desktop/main/schoolcode/School/build/War/CMakeFiles/rebuild_cache.dir

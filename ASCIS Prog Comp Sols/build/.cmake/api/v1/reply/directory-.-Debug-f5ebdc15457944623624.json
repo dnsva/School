@@ -8,7 +8,7 @@
 	"installers" : [],
 	"paths" : 
 	{
-		"build" : "War",
-		"source" : "War"
+		"build" : ".",
+		"source" : "."
 	}
 }

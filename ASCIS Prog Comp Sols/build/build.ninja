@@ -1,0 +1,269 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: Project
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/anna/Desktop/main/schoolcode/School/ASCIS$ Prog$ Comp$ Sols/build/
+# =============================================================================
+# Object build statements for EXECUTABLE target a
+
+
+#############################################
+# Order-only phony target for a
+
+build cmake_object_order_depends_target_a: phony || CMakeFiles/a.dir
+
+build CMakeFiles/a.dir/a.cpp.o: CXX_COMPILER__a_Debug /Users/anna/Desktop/main/schoolcode/School/ASCIS$ Prog$ Comp$ Sols/a.cpp || cmake_object_order_depends_target_a
+  DEP_FILE = CMakeFiles/a.dir/a.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/a.dir
+  OBJECT_FILE_DIR = CMakeFiles/a.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target a
+
+
+#############################################
+# Link the executable a
+
+build a: CXX_EXECUTABLE_LINKER__a_Debug CMakeFiles/a.dir/a.cpp.o
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/a.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = a
+  TARGET_PDB = a.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target b
+
+
+#############################################
+# Order-only phony target for b
+
+build cmake_object_order_depends_target_b: phony || CMakeFiles/b.dir
+
+build CMakeFiles/b.dir/b.cpp.o: CXX_COMPILER__b_Debug /Users/anna/Desktop/main/schoolcode/School/ASCIS$ Prog$ Comp$ Sols/b.cpp || cmake_object_order_depends_target_b
+  DEP_FILE = CMakeFiles/b.dir/b.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/b.dir
+  OBJECT_FILE_DIR = CMakeFiles/b.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target b
+
+
+#############################################
+# Link the executable b
+
+build b: CXX_EXECUTABLE_LINKER__b_Debug CMakeFiles/b.dir/b.cpp.o
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/b.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = b
+  TARGET_PDB = b.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target c
+
+
+#############################################
+# Order-only phony target for c
+
+build cmake_object_order_depends_target_c: phony || CMakeFiles/c.dir
+
+build CMakeFiles/c.dir/c.cpp.o: CXX_COMPILER__c_Debug /Users/anna/Desktop/main/schoolcode/School/ASCIS$ Prog$ Comp$ Sols/c.cpp || cmake_object_order_depends_target_c
+  DEP_FILE = CMakeFiles/c.dir/c.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/c.dir
+  OBJECT_FILE_DIR = CMakeFiles/c.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target c
+
+
+#############################################
+# Link the executable c
+
+build c: CXX_EXECUTABLE_LINKER__c_Debug CMakeFiles/c.dir/c.cpp.o
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/c.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = c
+  TARGET_PDB = c.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target d
+
+
+#############################################
+# Order-only phony target for d
+
+build cmake_object_order_depends_target_d: phony || CMakeFiles/d.dir
+
+build CMakeFiles/d.dir/d.cpp.o: CXX_COMPILER__d_Debug /Users/anna/Desktop/main/schoolcode/School/ASCIS$ Prog$ Comp$ Sols/d.cpp || cmake_object_order_depends_target_d
+  DEP_FILE = CMakeFiles/d.dir/d.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/d.dir
+  OBJECT_FILE_DIR = CMakeFiles/d.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target d
+
+
+#############################################
+# Link the executable d
+
+build d: CXX_EXECUTABLE_LINKER__d_Debug CMakeFiles/d.dir/d.cpp.o
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/d.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = d
+  TARGET_PDB = d.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target e
+
+
+#############################################
+# Order-only phony target for e
+
+build cmake_object_order_depends_target_e: phony || CMakeFiles/e.dir
+
+build CMakeFiles/e.dir/e.cpp.o: CXX_COMPILER__e_Debug /Users/anna/Desktop/main/schoolcode/School/ASCIS$ Prog$ Comp$ Sols/e.cpp || cmake_object_order_depends_target_e
+  DEP_FILE = CMakeFiles/e.dir/e.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/e.dir
+  OBJECT_FILE_DIR = CMakeFiles/e.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target e
+
+
+#############################################
+# Link the executable e
+
+build e: CXX_EXECUTABLE_LINKER__e_Debug CMakeFiles/e.dir/e.cpp.o
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/e.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = e
+  TARGET_PDB = e.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build" && /usr/local/Cellar/cmake/3.24.2/bin/ccmake -S"/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols" -B"/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build"
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build" && /usr/local/Cellar/cmake/3.24.2/bin/cmake --regenerate-during-build -S"/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols" -B"/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Target aliases.
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build
+
+build all: phony a b c d e
+
+# =============================================================================
+# Unknown Build Time Dependencies.
+# Tell Ninja that they may appear as side effects of build rules
+# otherwise ordered by order-only dependencies.
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | /Users/anna/Desktop/main/schoolcode/School/ASCIS$ Prog$ Comp$ Sols/CMakeLists.txt /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeCInformation.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeCXXInformation.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeGenericSystem.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Compiler/AppleClang-C.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Compiler/AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Compiler/Clang.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Compiler/GNU.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Apple-AppleClang-C.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Apple-AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Apple-Clang-C.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Apple-Clang-CXX.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Apple-Clang.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Darwin-Initialize.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Darwin.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build /Users/anna/Desktop/main/schoolcode/School/ASCIS$ Prog$ Comp$ Sols/CMakeLists.txt /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeCInformation.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeCXXInformation.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeGenericSystem.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Compiler/AppleClang-C.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Compiler/AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Compiler/Clang.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Compiler/GNU.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Apple-AppleClang-C.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Apple-AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Apple-Clang-C.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Apple-Clang-CXX.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Apple-Clang.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Darwin-Initialize.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/Darwin.cmake /usr/local/Cellar/cmake/3.24.2/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all

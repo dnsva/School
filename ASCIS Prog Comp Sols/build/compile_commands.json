@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build",
+  "command": "/usr/bin/clang++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -o CMakeFiles/a.dir/a.cpp.o -c \"/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/a.cpp\"",
+  "file": "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/a.cpp"
+},
+{
+  "directory": "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build",
+  "command": "/usr/bin/clang++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -o CMakeFiles/b.dir/b.cpp.o -c \"/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/b.cpp\"",
+  "file": "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/b.cpp"
+},
+{
+  "directory": "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build",
+  "command": "/usr/bin/clang++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -o CMakeFiles/c.dir/c.cpp.o -c \"/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/c.cpp\"",
+  "file": "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/c.cpp"
+},
+{
+  "directory": "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build",
+  "command": "/usr/bin/clang++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -o CMakeFiles/d.dir/d.cpp.o -c \"/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/d.cpp\"",
+  "file": "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/d.cpp"
+},
+{
+  "directory": "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build",
+  "command": "/usr/bin/clang++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -o CMakeFiles/e.dir/e.cpp.o -c \"/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/e.cpp\"",
+  "file": "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/e.cpp"
+}
+]
