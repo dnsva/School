@@ -9,9 +9,10 @@
 
 struct player{
 
+    //The cards the player has 
     std::queue<card>cards;
 
-    //Actions player can do (as methods)
+    //Actions player can do
 
     void add_card(card c){
         cards.push(c);

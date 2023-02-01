@@ -18,7 +18,7 @@ void play(){
 
     //Play 
 
-    while(p1.card_num != 0 && p2.card_num != 0){
+    while(p1.num_cards() != 0 && p2.num_cards() != 0){
 
         //while there are still cards 
 

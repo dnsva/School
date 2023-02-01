@@ -1,0 +1,2 @@
+/Users/anna/Documents/main/schoolcode/School/War/build/CMakeFiles/edit_cache.dir
+/Users/anna/Documents/main/schoolcode/School/War/build/CMakeFiles/rebuild_cache.dir
