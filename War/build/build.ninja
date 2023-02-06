@@ -37,6 +37,37 @@ include CMakeFiles/rules.ninja
 # Logical path to working directory; prefix for absolute paths.
 
 cmake_ninja_workdir = /Users/anna/Documents/main/schoolcode/School/War/build/
+# =============================================================================
+# Object build statements for EXECUTABLE target test
+
+
+#############################################
+# Order-only phony target for test
+
+build cmake_object_order_depends_target_test: phony || CMakeFiles/test.dir
+
+build CMakeFiles/test.dir/main.cpp.o: CXX_COMPILER__test_Debug /Users/anna/Documents/main/schoolcode/School/War/main.cpp || cmake_object_order_depends_target_test
+  DEP_FILE = CMakeFiles/test.dir/main.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/test.dir
+  OBJECT_FILE_DIR = CMakeFiles/test.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test
+
+
+#############################################
+# Link the executable test
+
+build test: CXX_EXECUTABLE_LINKER__test_Debug CMakeFiles/test.dir/main.cpp.o
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/test.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = test
+  TARGET_PDB = test.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -72,7 +103,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/anna/Documents/main/schoolcode/School/War/build
 
-build all: phony
+build all: phony test
 
 # =============================================================================
 # Unknown Build Time Dependencies.

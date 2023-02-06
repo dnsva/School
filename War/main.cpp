@@ -3,6 +3,7 @@
 
 #include "card_info.h"
 #include "player_info.h"
+#include "display.h"
 
 using namespace std;
 
@@ -17,6 +18,16 @@ void play(){
     deal_cards(&p1, &p2);
 
     //Play 
+
+    //which hand
+    char dominant_hand;
+    cout<<"are you left handed or right handed (r/l)?";
+    cin>>dominant_hand;
+    while(dominant_hand != 'r' && dominant_hand != 'l'){
+        cout<<"bad input, try again: ";
+        cin>>dominant_hand;
+    }
+    right_handed = (dominant_hand == 'r') ? 1:0;
 
     while(p1.num_cards() != 0 && p2.num_cards() != 0){
 
@@ -74,4 +85,6 @@ void play(){
 
 int main(){
     cout<<"Hello world";
+    string test = "test";
+    update_screen(test, 3, 14, false, {4, 'D'}, {5, 'H'}, false);
 }

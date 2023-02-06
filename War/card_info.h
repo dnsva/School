@@ -9,13 +9,15 @@
 #define CARD_INFO_H
 #include "player_info.h"
 
+using std::vector;
+
 struct card{
 
     int value; //number on card
     char suit; //suit of card
     
-    card(int value, char suit)
-    : value{value}, suit{suit} {} //assign everything as normal
+    card(int value_, char suit_)
+    : value(value_), suit(suit_) {} //assign everything as normal
 
     card() = default; //default 
 
@@ -24,18 +26,18 @@ struct card{
 void deal_cards(player* p1, player* p2){ //deals cards to each player
 
     srand(time(0));
-    std::vector<card>deck;
-    std::vector<card>shuffled_deck {54, {0, '\0'}};
+    vector<card>deck;
+    vector<card>shuffled_deck (54, card(0, '?'));
 
     //CREATE DECK
     for(int i = 2; i<=14; ++i){
-        deck.push_back({i, 'h'}); //hearts
-        deck.push_back({i, 'd'}); //diamonds
-        deck.push_back({i, 's'}); //spades
-        deck.push_back({i, 'c'}); //clubs
+        deck.push_back(card(i, 'H')); //hearts
+        deck.push_back(card(i, 'D')); //diamonds
+        deck.push_back(card(i, 'S')); //spades
+        deck.push_back(card(i, 'C')); //clubs
     }
-    deck.push_back({15, 'j'}); //jokers
-    deck.push_back({15, 'j'});
+    deck.push_back(card(15, 'J')); //jokers
+    deck.push_back(card(15, 'J'));
 
     //SUFFLE DECK
     for(int i = 0; i < deck.size(); ++i){ //randomly generate a pos for each card in deck to place into shuffled deck

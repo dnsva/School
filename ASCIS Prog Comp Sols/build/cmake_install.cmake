@@ -1,4 +1,4 @@
-# Install script for directory: /Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols
+# Install script for directory: /Users/anna/Documents/main/schoolcode/School/ASCIS Prog Comp Sols
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/anna/Desktop/main/schoolcode/School/ASCIS Prog Comp Sols/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/anna/Documents/main/schoolcode/School/ASCIS Prog Comp Sols/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
