@@ -1,13 +1,10 @@
 
 #include <iostream>
+#include <queue>
 #include <vector>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-
-#ifndef CARD_INFO_H
-#define CARD_INFO_H
-#include "player_info.h"
 
 using std::vector;
 
@@ -20,6 +17,30 @@ struct card{
     : value(value_), suit(suit_) {} //assign everything as normal
 
     card() = default; //default 
+
+};
+
+
+struct player{
+
+    //The cards the player has 
+    std::queue<card>cards;
+
+    //Actions player can do
+
+    void add_card(card c){
+        cards.push(c);
+    }
+
+    card play_card(){
+        card top_card = cards.front();
+        cards.pop();
+        return top_card;
+    }
+
+    int num_cards(){
+        return cards.size();
+    }
 
 };
 
@@ -40,11 +61,11 @@ void deal_cards(player* p1, player* p2){ //deals cards to each player
     deck.push_back(card(15, 'J'));
 
     //SUFFLE DECK
-    for(int i = 0; i < deck.size(); ++i){ //randomly generate a pos for each card in deck to place into shuffled deck
+    for(int i = 0; i < 54; ++i){ //randomly generate a pos for each card in deck to place into shuffled deck
         int new_pos = rand()%54 + 1;
-        while(shuffled_deck[new_pos].value == 0){ //if already taken
-            new_pos = rand()%54 + 1; //roll new pos 
-        }
+        //while(shuffled_deck[new_pos].value == 0){ //if already taken
+            //new_pos = rand()%54 + 1; //roll new pos 
+        //}
         shuffled_deck[new_pos] = deck[i];
     }
 
@@ -59,5 +80,3 @@ void deal_cards(player* p1, player* p2){ //deals cards to each player
     }
 
 }
-
-#endif

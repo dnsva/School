@@ -1,27 +1,26 @@
-
+/*
 #include <iostream>
 
-#include "info.h"
-//#include "display.h"
+#include "card_info.h"
+#include "player_info.h"
+#include "display.h"
 
 using namespace std;
 
 void play(){
 
-    cout<<"in play()\n";
     //Create players
 
     player p1, p2;
-    cout<<"Players created\n";
 
     //Deal cards
 
     deal_cards(&p1, &p2);
-    cout<<"Cards dealt\n";
+
     //Play 
 
     //which hand (EXTRA FINISH LATER)
-
+    
     char dominant_hand;
     cout<<"are you left handed or right handed (r/l)?";
     cin>>dominant_hand;
@@ -29,30 +28,24 @@ void play(){
         cout<<"bad input, try again: ";
         cin>>dominant_hand;
     }
-    bool right_handed = (dominant_hand == 'r') ? 1:0;
- 
+    right_handed = (dominant_hand == 'r') ? 1:0;
 
     while(p1.num_cards() != 0 && p2.num_cards() != 0){
-        cout<<"p1 has "<<p1.num_cards()<<", p2 has "<<p2.num_cards()<<"\n";
+
         //while there are still cards 
 
         card player_card, ai_card;
 
         player_card = p1.play_card();
-        cout<<"\tp1 played "<<player_card.suit<<", "<<player_card.value<<"\n";
         ai_card = p2.play_card();
-        cout<<"\tp2 played "<<ai_card.suit<<", "<<ai_card.value<<"\n";
 
         if(player_card.value > ai_card.value){
             p1.add_card(player_card);
             p1.add_card(ai_card);
-            cout<<"\tp1 took cards\n";
         }else if(player_card.value < ai_card.value){
             p2.add_card(player_card);
             p2.add_card(ai_card);
-            cout<<"\tp2 took cards\n";
         }else{
-            cout<<"WAR\n";
             //WAR
             vector<card>extra_war_cards;
 
@@ -79,11 +72,9 @@ void play(){
             if(player_card.value > ai_card.value){
                 p1.add_card(player_card);
                 p1.add_card(ai_card);
-                cout<<"\tp1 takes cards\n";
             }else if(player_card.value < ai_card.value){
                 p2.add_card(player_card);
                 p2.add_card(ai_card);
-                cout<<"\tp2 takes cards\n";
             }
 
         }
@@ -96,6 +87,6 @@ void play(){
 int main(){
     cout<<"Hello world";
     string test = "test";
-    play();
-    //update_screen(test, 3, 14, false, {4, 'D'}, {5, 'H'}, false);
+    update_screen(test, 3, 14, false, {4, 'D'}, {5, 'H'}, false);
 }
+*/

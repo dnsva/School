@@ -1,14 +1,14 @@
-//change to .h later
-
+/*
 #include <iostream>
 //#include <string>
-#include "info.h"
+#include "card_info.h"
 
 using std::cout;
 using std::wcout;
 using std::string;
 
 #define cout wcout
+
 
 bool right_handed = true; //by default, changeable in main code
 wchar_t make_blank_card();
@@ -203,7 +203,7 @@ void update_screen(
     
     //hands and cards 
     if(face_up || (!face_up && !hand_covering)){
-        wchar_t showing_card; //either face up or face down
+        char showing_card [4][5]; //either face up or face down
         if(face_up){
             showing_card = make_card(card_played_P1);
         }else{
@@ -222,7 +222,7 @@ void update_screen(
             cout<<leftover_width;
             for(int j = 0; j<9; ++j) cout<<FLIPPED_LEFT_nocard[i+2][j];
             cout<<"  ";
-            for(int j = 0; j<5; ++j) cout<<showing_card[i][j];
+            for(int j = 0; j<5; ++j) cout<<showing_card[i][j]
             cout<<"  ";
             for(int j = 0; j<9; ++j) cout<<FLIPPED_RIGHT_nocard[i+2][j];
             cout<<leftover_width;
@@ -290,7 +290,7 @@ void update_screen(
 
     //curr cards ------ [|] + ["CARDS ("] + [ (num_cards_P2 < 10) ? cout<<"0"; cout<<num_cards_P2 ] + [")"] + [terminal_width -] + [|]
     cout<<" | CARDS(";
-    if (num_cards_P2<10) cout<<"0";
+    (num_cards_P2<10) ? cout<<"0";
     cout<<num_cards_P2<<")";
     for(int i = 0; i<window_width-10; ++i) cout<<" ";
     cout<<"|\n";
@@ -302,7 +302,7 @@ void update_screen(
 
     //cards and hands
     if(face_up || (!face_up && !hand_covering)){
-        wchar_t showing_card; //either face up or face down
+        char showing_card [4][5]; //either face up or face down
         if(face_up){
             showing_card = make_card(card_played_P2);
         }else{
@@ -321,7 +321,7 @@ void update_screen(
             cout<<leftover_width;
             for(int j = 0; j<9; ++j) cout<<LEFT_nocard[i+2][j];
             cout<<"  ";
-            for(int j = 0; j<5; ++j) cout<<showing_card[i][j];
+            for(int j = 0; j<5; ++j) cout<<showing_card[i][j]
             cout<<"  ";
             for(int j = 0; j<9; ++j) cout<<RIGHT_nocard[i+2][j];
             cout<<leftover_width;
@@ -435,3 +435,4 @@ wchar_t make_blank_card(){
     };
     return ascii_card;
 }
+*/
