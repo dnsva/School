@@ -1,10 +1,14 @@
 
+#ifndef INFO_H
+#define INFO_H
+
 #include <iostream>
 #include <queue>
 #include <vector>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+
 
 using std::vector;
 
@@ -80,3 +84,5 @@ void deal_cards(player* p1, player* p2){ //deals cards to each player
     }
 
 }
+
+#endif

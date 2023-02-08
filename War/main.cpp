@@ -1,8 +1,12 @@
 
 #include <iostream>
-
 #include "info.h"
-//#include "display.h"
+#include "display.h"
+#include "ascii_stuff.h"
+
+#ifdef _WIN32
+	bool ok = init_term();
+#endif
 
 using namespace std;
 
@@ -33,6 +37,7 @@ void play(){
  
 
     while(p1.num_cards() != 0 && p2.num_cards() != 0){
+  
         cout<<"p1 has "<<p1.num_cards()<<", p2 has "<<p2.num_cards()<<"\n";
         //while there are still cards 
 
@@ -42,6 +47,10 @@ void play(){
         cout<<"\tp1 played "<<player_card.suit<<", "<<player_card.value<<"\n";
         ai_card = p2.play_card();
         cout<<"\tp2 played "<<ai_card.suit<<", "<<ai_card.value<<"\n";
+        
+        //DISPLAY
+    	update_screen("test", p1.num_cards(), p2.num_cards(), false, player_card, ai_card, false);
+    	//-----------------
 
         if(player_card.value > ai_card.value){
             p1.add_card(player_card);
@@ -94,8 +103,11 @@ void play(){
 }
 
 int main(){
-    cout<<"Hello world";
+    //cout<<"Hello world";
     string test = "test";
-    play();
-    //update_screen(test, 3, 14, false, {4, 'D'}, {5, 'H'}, false);
+    //play();
+    //update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, true);
+    update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, false);
+    cout<<"returned\n";
+    return 0;
 }
