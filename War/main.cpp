@@ -106,7 +106,7 @@ int main(){
     //cout<<"Hello world";
     string test = "test";
     //play();
-    //update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, true);
+    update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, true);
     update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, false);
     cout<<"returned\n";
     return 0;

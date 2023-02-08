@@ -109,7 +109,7 @@ void update_screen(
 
 	//cout<<"IN UPDATE SCREEN\n\n";
 	
-    int window_width = 100; //terminal width minus some edge stuff MAKE SURE THIS IS EVEN 
+    int window_width = 50; //terminal width minus some edge stuff MAKE SURE THIS IS EVEN 
     int needed_width = 9*2+4+6; //hands and cards (28)
    // int leftover_width = (window_width-(needed_width))/2; //add err check for 0; // = (get terminal width-needed width)/ 2, sides
 	int leftover_width = window_width/2 - needed_width/2;
@@ -334,7 +334,7 @@ void update_screen(
         }
     }
 
-	cout<<"hello?\n";
+//	cout<<"hello?\n";
 	//bottom border
     cout<<"   ";
     for(int i = 0; i<window_width; ++i) cout<<"-";
