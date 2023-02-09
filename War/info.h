@@ -29,6 +29,16 @@ struct player{
 
     //The cards the player has 
     std::queue<card>cards;
+    void print_queue(){
+    	
+    	std::queue<card>temp = cards;
+    	while(!temp.empty()){
+    		std::cout<<temp.front().suit<<", "<<temp.front().value<<" ";
+    		temp.pop();
+		}
+		std::cout<<"\nend\n";
+
+	}
 
     //Actions player can do
 
@@ -50,6 +60,8 @@ struct player{
 
 void deal_cards(player* p1, player* p2){ //deals cards to each player
 
+	std::cout<<"\tin deal_cards()\n";
+	
     srand(time(0));
     vector<card>deck;
     vector<card>shuffled_deck (54, card(0, '?'));
@@ -63,25 +75,42 @@ void deal_cards(player* p1, player* p2){ //deals cards to each player
     }
     deck.push_back(card(15, 'J')); //jokers
     deck.push_back(card(15, 'J'));
+    
+   // std::cout<<"THE NORM DECK IS THIS: ";
+   // for(card c : deck) std::cout<<c.suit<<","<<c.value<<" "; std::cout<<"\n";
 
     //SUFFLE DECK
+    
+    
     for(int i = 0; i < 54; ++i){ //randomly generate a pos for each card in deck to place into shuffled deck
-        int new_pos = rand()%54 + 1;
-        //while(shuffled_deck[new_pos].value == 0){ //if already taken
-            //new_pos = rand()%54 + 1; //roll new pos 
-        //}
+    	
+        int new_pos = rand()%54;
+        //if the new pos is already used, find another one 
+        while(shuffled_deck[new_pos].value != 0){
+        	//std::cout<<"in loop\n";
+        	new_pos = rand()%54;
+        	//std::cout<<"found pos\n";
+		}
+        
         shuffled_deck[new_pos] = deck[i];
+        //std::cout<<"assigned pos\n";
+
     }
 
     //DISTRIBUTE CARDS
     //Now we add the cards to the queues of p1 and p2 
     //since 54/2 is 27, each player gets 27 cards
+    (*p1).add_card({5, 'D'});
+    (*p2).add_card({5, 'H'});
+    
     for(int i = 0; i < 27; ++i){
         (*p1).add_card(shuffled_deck[i]);
     }
     for(int i = 27; i < 54; ++i){
         (*p2).add_card(shuffled_deck[i]);
     }
+    
+    
 
 }
 

@@ -1,8 +1,11 @@
 
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include "info.h"
 #include "display.h"
 #include "ascii_stuff.h"
+
 
 #ifdef _WIN32
 	bool ok = init_term();
@@ -10,22 +13,44 @@
 
 using namespace std;
 
+void show_rules(){
+	cout<<"Look at your browser...\n";
+	ShellExecute(NULL, "open", "https://bicyclecards.com/how-to-play/war",NULL, NULL, SW_SHOWNORMAL);
+	
+}
+
+bool quit(){ //true - yes, quit, false - no, continue 
+	char confirm_quit;
+	cout<<"Are you sure (y/n)? ";
+	cin>>confirm_quit;
+	while(confirm_quit != 'y' && confirm_quit != 'n'){
+		cout<<"Bad input, try again (y/n): ";
+		cin>>confirm_quit;
+	}
+	if(confirm_quit == 'y'){
+		return true;
+	}else{
+		return false;
+	}
+	
+}
+
 void play(){
 
-    cout<<"in play()\n";
-    //Create players
+    player p1, p2; //Create players
+	
+	cout<<"DEALING CARDS...\n"; //output
+    deal_cards(&p1, &p2); //Deal cards
+   // cout<<"p1 cards...:\n";
+   // p1.print_queue();
+   // cout<<"p2 cards...:\n";
+   // p2.print_queue();
+    //update_screen("Cards Dealt", p1.num_cards(), p2.num_cards(), false, {}, {}, false); //Output that cards were dealt
+	cout<<"CARDS DEALT...\n";
+	
+    //PLAY
 
-    player p1, p2;
-    cout<<"Players created\n";
-
-    //Deal cards
-
-    deal_cards(&p1, &p2);
-    cout<<"Cards dealt\n";
-    //Play 
-
-    //which hand (EXTRA FINISH LATER)
-
+    //which hand (EXTRA) 
     char dominant_hand;
     cout<<"are you left handed or right handed (r/l)?";
     cin>>dominant_hand;
@@ -33,40 +58,74 @@ void play(){
         cout<<"bad input, try again: ";
         cin>>dominant_hand;
     }
-    bool right_handed = (dominant_hand == 'r') ? 1:0;
+    right_handed = (dominant_hand == 'r') ? 1:0; //change global var from display.h
  
-
     while(p1.num_cards() != 0 && p2.num_cards() != 0){
-  
-        cout<<"p1 has "<<p1.num_cards()<<", p2 has "<<p2.num_cards()<<"\n";
-        //while there are still cards 
-
+  		
+  		update_screen("...", p1.num_cards(), p2.num_cards(), false, {}, {}, false);
+  		
+		char in_game_options;
+		cout<<"What do you want to do? Enter the char 'p' to play a card, 'q' to quit the match\n> ";
+		cin>>in_game_options;
+		while(in_game_options != 'p' && in_game_options != 'q'){
+			cout<<"Bad input... Try again\n> ";
+			cin>>in_game_options;
+		}
+		if(in_game_options == 'q'){
+			break;
+		} //else just continue 
+  		
+  		update_screen("About to play card...", p1.num_cards(), p2.num_cards(), false, {}, {}, true);
+  		
         card player_card, ai_card;
-
         player_card = p1.play_card();
-        cout<<"\tp1 played "<<player_card.suit<<", "<<player_card.value<<"\n";
         ai_card = p2.play_card();
-        cout<<"\tp2 played "<<ai_card.suit<<", "<<ai_card.value<<"\n";
+       // cout<<"\tp1 played "<<player_card.suit<<", "<<player_card.value<<"\n";
+        //cout<<"\tp2 played "<<ai_card.suit<<", "<<ai_card.value<<"\n";
         
+        update_screen("Cards played", p1.num_cards(), p2.num_cards(), true, ai_card, player_card, false);
+        //add extra sleep 
+        std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+            
         //DISPLAY
-    	update_screen("test", p1.num_cards(), p2.num_cards(), false, player_card, ai_card, false);
+    	//update_screen("test", p1.num_cards(), p2.num_cards(), false, player_card, ai_card, false);
     	//-----------------
 
         if(player_card.value > ai_card.value){
-            p1.add_card(player_card);
-            p1.add_card(ai_card);
-            cout<<"\tp1 took cards\n";
-        }else if(player_card.value < ai_card.value){
             p2.add_card(player_card);
             p2.add_card(ai_card);
-            cout<<"\tp2 took cards\n";
+            update_screen("PLAYER TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false);
+            //add extra sleep 
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            //cout<<"\tp1 took cards\n";
+        }else if(player_card.value < ai_card.value){
+            p1.add_card(player_card);
+            p1.add_card(ai_card);
+            update_screen("AI TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false);
+            //add extra sleep 
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            //cout<<"\tp2 took cards\n";
         }else{
+        	
+        	//cout<<"Would be a war but we end the prog here for now \n";
+        	//return;
+        	
             cout<<"WAR\n";
             //WAR
             vector<card>extra_war_cards;
 
             while(player_card.value == ai_card.value){
-
+				
+				cout<<"What do you want to do? Enter the char 'p' to play cards, 'q' to quit the match\n> ";
+				cin>>in_game_options;
+				while(in_game_options != 'p' && in_game_options != 'q'){
+					cout<<"Bad input... Try again\n> ";
+					cin>>in_game_options;
+				}
+				
+				update_screen("About to play cards (2 face down, 1 up) ...", p1.num_cards(), p2.num_cards(), false, {}, {}, true);
+				//add extra sleep 
+       			std::this_thread::sleep_for(std::chrono::milliseconds(900));
                 //2 cards down each unless someone doesnt have enough cards
                 //if they dont have enough cards they just put out whatever they have
 
@@ -76,23 +135,38 @@ void play(){
                 for(int i = 0; i<2 && i<p2.num_cards()-1; ++i){
                     extra_war_cards.push_back(p2.play_card());
                 }
-
+				
+				extra_war_cards.push_back(player_card); //old main ones (if double war)
+				extra_war_cards.push_back(ai_card); //old main ones (if double war)
                 //Draw new cards that count 
 
-                player_card = p1.play_card();
-                ai_card = p2.play_card();
+                player_card = p2.play_card();
+                ai_card = p1.play_card();
                 
+                update_screen("Cards played", p1.num_cards(), p2.num_cards(), true, ai_card, player_card, false);
+                //add extra sleep 
+        		std::this_thread::sleep_for(std::chrono::milliseconds(1500));
             }
 
             //Now since we've dealt with the war, we act like norm
             if(player_card.value > ai_card.value){
-                p1.add_card(player_card);
-                p1.add_card(ai_card);
-                cout<<"\tp1 takes cards\n";
-            }else if(player_card.value < ai_card.value){
                 p2.add_card(player_card);
                 p2.add_card(ai_card);
-                cout<<"\tp2 takes cards\n";
+                for(card c : extra_war_cards){
+                	p2.add_card(c);
+				}
+                update_screen("AI TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false);
+           		//add extra sleep 
+            	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            }else if(player_card.value < ai_card.value){
+                p1.add_card(player_card);
+                p1.add_card(ai_card);
+                for(card c : extra_war_cards){
+                	p1.add_card(c);
+				}
+                update_screen("PLAYER TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false);
+           		//add extra sleep 
+            	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             }
 
         }
@@ -104,10 +178,33 @@ void play(){
 
 int main(){
     //cout<<"Hello world";
-    string test = "test";
+    //string test = "test";
     //play();
-    update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, true);
-    update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, false);
-    cout<<"returned\n";
-    return 0;
+    //              note  cards p1, cards p2, 
+    //update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, true);
+    //update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, false);
+ 
+	bool done = false;
+	int choice = -1;
+	while(!done){
+		cout<<"\x1b[5m";
+		cout<<"(0) - Play\n";
+		cout<<"(1) - See rules\n";
+		cout<<"(2) - Quit\n";
+		cout<<"Enter choice: ";
+		cin>>choice;
+		while(choice < 0 || choice > 2){
+			cout<<"Bad input. Try again: ";
+			cin>>choice;
+		}
+		if(choice == 0){
+			play();
+		}else if(choice == 1){
+			show_rules();
+		}else{
+			done = quit();
+		}
+	}
 }
+
+//update_screen( note, num_cards_P1, num_cards_P2, face_up?(bool), card_played_P1, card_played_P2, hand_covering? )

@@ -4,6 +4,10 @@
 //#include <string>
 #include "info.h"
 #include <vector>
+#include "ascii_art.h"
+#include <thread>
+#include <chrono>
+#include <string>
 
 using std::vector;
 using std::cout;
@@ -106,10 +110,14 @@ void update_screen(
         //n?
         bool hand_covering
 ){
-
+	
+	//1) CLEAR SCREEN 
+		
+	printf(newpage);
+	
 	//cout<<"IN UPDATE SCREEN\n\n";
 	
-    int window_width = 50; //terminal width minus some edge stuff MAKE SURE THIS IS EVEN 
+    int window_width = 100; //terminal width minus some edge stuff MAKE SURE THIS IS EVEN 
     int needed_width = 9*2+4+6; //hands and cards (28)
    // int leftover_width = (window_width-(needed_width))/2; //add err check for 0; // = (get terminal width-needed width)/ 2, sides
 	int leftover_width = window_width/2 - needed_width/2;
@@ -173,30 +181,12 @@ void update_screen(
             cout<<" |\n";
             
 
-    }else if(hand_covering){
+    }else if(hand_covering){ //Since this is the AI, make their dominant hand such that it is NOT mirrored to you (this looks better) 
     	//cout<<"\nABOUT TO PRINT HAND COVERING \n";
         if(right_handed){ //right handed
             for(int i = 0; i<6; ++i){
             	cout<<" | ";
-                for(int space = 0; space<leftover_width; ++space) cout<<" ";
-                for(int j = 0; j<9; ++j){
-                    cout<<FLIPPED_LEFT_nocard[i][j];
-                }
-                cout<<"  ";
-                for(int j = 0; j<9; ++j){
-                    cout<<FLIPPED_RIGHT_card[i][j];
-                }
-                //cout<<7+leftover_width;
                 for(int space = 0; space<leftover_width+8; ++space) cout<<" ";
-                cout<<" |\n";
-            }
-            
-            
-        }else{ //left handed
-            for(int i = 0; i<6; ++i){
-            	cout<<" | ";
-            	for(int space = 0; space<leftover_width+8; ++space) cout<<" ";
-                //cout<<leftover_width+7;
                 for(int j = 0; j<9; ++j){
                     cout<<FLIPPED_LEFT_card[i][j];
                 }
@@ -204,7 +194,25 @@ void update_screen(
                 for(int j = 0; j<9; ++j){
                     cout<<FLIPPED_RIGHT_nocard[i][j];
                 }
+                //cout<<7+leftover_width;
                 for(int space = 0; space<leftover_width; ++space) cout<<" ";
+                cout<<" |\n";
+            }
+            
+            
+        }else{ //left handed
+            for(int i = 0; i<6; ++i){
+            	cout<<" | ";
+            	for(int space = 0; space<leftover_width; ++space) cout<<" ";
+                //cout<<leftover_width+7;
+                for(int j = 0; j<9; ++j){
+                    cout<<FLIPPED_LEFT_nocard[i][j];
+                }
+                cout<<"  ";
+                for(int j = 0; j<9; ++j){
+                    cout<<FLIPPED_RIGHT_card[i][j];
+                }
+                for(int space = 0; space<leftover_width+8; ++space) cout<<" ";
 				cout<<" |\n";
             }
             
@@ -339,6 +347,9 @@ void update_screen(
     cout<<"   ";
     for(int i = 0; i<window_width; ++i) cout<<"-";
     cout<<" \n";
+    
+    //SLEEP
+    std::this_thread::sleep_for(std::chrono::milliseconds(800));
 }
 
 vector<vector<string>> make_card(card c){
@@ -361,7 +372,7 @@ vector<vector<string>> make_card(card c){
     }else{
         ascii_card[1][3] = " ";
         if(c.value < 11){
-            ascii_card[1][4] = c.value;
+            ascii_card[1][4] = std::to_string(c.value);
         }else if(c.value == 11){
             ascii_card[1][4] = "J";
         }else if(c.value == 12){
@@ -388,7 +399,7 @@ vector<vector<string>> make_card(card c){
     }else{
         ascii_card[3][2] = " ";
         if(c.value < 11){
-            ascii_card[3][1] = c.value;
+            ascii_card[3][1] = std::to_string(c.value);
         }else if(c.value == 11){
             ascii_card[3][1] = "J";
         }else if(c.value == 12){
