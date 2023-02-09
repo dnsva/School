@@ -60,7 +60,7 @@ struct player{
 
 void deal_cards(player* p1, player* p2){ //deals cards to each player
 
-	std::cout<<"\tin deal_cards()\n";
+	//std::cout<<"\tin deal_cards()\n";
 	
     srand(time(0));
     vector<card>deck;
@@ -100,8 +100,8 @@ void deal_cards(player* p1, player* p2){ //deals cards to each player
     //DISTRIBUTE CARDS
     //Now we add the cards to the queues of p1 and p2 
     //since 54/2 is 27, each player gets 27 cards
-    (*p1).add_card({5, 'D'});
-    (*p2).add_card({5, 'H'});
+    //(*p1).add_card({5, 'D'});
+    //(*p2).add_card({5, 'H'});
     
     for(int i = 0; i < 27; ++i){
         (*p1).add_card(shuffled_deck[i]);

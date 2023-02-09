@@ -1,15 +1,16 @@
 
+
+#include "ascii_stuff.h"
+
+#ifdef _WIN32
+	bool ok = init_term();
+#endif
+
 #include <iostream>
 #include <thread>
 #include <chrono>
 #include "info.h"
 #include "display.h"
-#include "ascii_stuff.h"
-
-
-#ifdef _WIN32
-	bool ok = init_term();
-#endif
 
 using namespace std;
 
@@ -39,20 +40,38 @@ void play(){
 
     player p1, p2; //Create players
 	
-	cout<<"DEALING CARDS...\n"; //output
+	cout<<reset<<light_purple;
+	
+	cout<<newpage; //clear screen
+	cout<<"D\n";
+	cout<<"E\n";
+	cout<<"A\n";
+	cout<<"L\n";
+	cout<<"I\n";
+	cout<<"N\n";
+	cout<<"G\n\n";
+	std::this_thread::sleep_for(std::chrono::milliseconds(500)); //sleep
+	cout<<"C\n";
+	cout<<"A\n";
+	cout<<"R\n";
+	cout<<"D\n";
+	cout<<"S\n";
+	std::this_thread::sleep_for(std::chrono::milliseconds(500)); //sleep
+	cout<<".\n";
+	cout<<".\n";
+	cout<<".\n";
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000)); //sleep
+	cout<<newpage;
+	//std::this_thread::sleep_for(std::chrono::milliseconds(500)); //sleep
     deal_cards(&p1, &p2); //Deal cards
-   // cout<<"p1 cards...:\n";
-   // p1.print_queue();
-   // cout<<"p2 cards...:\n";
-   // p2.print_queue();
-    //update_screen("Cards Dealt", p1.num_cards(), p2.num_cards(), false, {}, {}, false); //Output that cards were dealt
 	cout<<"CARDS DEALT...\n";
+	cout<<reset;
 	
     //PLAY
 
     //which hand (EXTRA) 
     char dominant_hand;
-    cout<<"are you left handed or right handed (r/l)?";
+    cout<<"are you left handed or right handed (r/l)?\n> ";
     cin>>dominant_hand;
     while(dominant_hand != 'r' && dominant_hand != 'l'){
         cout<<"bad input, try again: ";
@@ -184,10 +203,17 @@ int main(){
     //update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, true);
     //update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, false);
  
+ 	//SET THE FOREGROUND COLOR TO BE LIGHT PURPLE
+ 	cout<<light_purple;
+ 	
+ 	
+ 	
 	bool done = false;
 	int choice = -1;
 	while(!done){
-		cout<<"\x1b[5m";
+		cout<<newpage; //get new page 
+		//cout<<deep_blue<<"\x1b[5m";
+		display_title();
 		cout<<"(0) - Play\n";
 		cout<<"(1) - See rules\n";
 		cout<<"(2) - Quit\n";
