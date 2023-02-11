@@ -73,16 +73,17 @@ void deal_cards(player* p1, player* p2){ //deals cards to each player
         deck.push_back(card(i, 'S')); //spades
         deck.push_back(card(i, 'C')); //clubs
     }
-    deck.push_back(card(15, 'J')); //jokers
-    deck.push_back(card(15, 'J'));
+    deck.push_back(card(15, '-')); //jokers
+    deck.push_back(card(15, '-'));
     
    // std::cout<<"THE NORM DECK IS THIS: ";
    // for(card c : deck) std::cout<<c.suit<<","<<c.value<<" "; std::cout<<"\n";
 
     //SUFFLE DECK
+    shuffled_deck = deck;
     
     
-    for(int i = 0; i < 54; ++i){ //randomly generate a pos for each card in deck to place into shuffled deck
+    /*for(int i = 0; i < 54; ++i){ //randomly generate a pos for each card in deck to place into shuffled deck
     	
         int new_pos = rand()%54;
         //if the new pos is already used, find another one 
@@ -96,7 +97,7 @@ void deal_cards(player* p1, player* p2){ //deals cards to each player
         //std::cout<<"assigned pos\n";
 
     }
-
+*/
     //DISTRIBUTE CARDS
     //Now we add the cards to the queues of p1 and p2 
     //since 54/2 is 27, each player gets 27 cards

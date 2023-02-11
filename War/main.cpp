@@ -1,4 +1,9 @@
 
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include "info.h"
+#include "display.h"
 
 #include "ascii_stuff.h"
 
@@ -6,18 +11,14 @@
 	bool ok = init_term();
 #endif
 
-#include <iostream>
-#include <thread>
-#include <chrono>
-#include "info.h"
-#include "display.h"
 
 using namespace std;
 
 void show_rules(){
 	cout<<"Look at your browser...\n";
 	ShellExecute(NULL, "open", "https://bicyclecards.com/how-to-play/war",NULL, NULL, SW_SHOWNORMAL);
-	
+	cout<<"You will go back to the main screen in 5 seconds\n";
+	std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //sleep	
 }
 
 bool quit(){ //true - yes, quit, false - no, continue 
@@ -39,6 +40,8 @@ bool quit(){ //true - yes, quit, false - no, continue
 void play(){
 
     player p1, p2; //Create players
+	char dominant_hand; //To store dominant hand
+	char in_game_options;
 	
 	cout<<reset<<light_purple;
 	
@@ -70,7 +73,6 @@ void play(){
     //PLAY
 
     //which hand (EXTRA) 
-    char dominant_hand;
     cout<<"are you left handed or right handed (r/l)?\n> ";
     cin>>dominant_hand;
     while(dominant_hand != 'r' && dominant_hand != 'l'){
@@ -83,7 +85,6 @@ void play(){
   		
   		update_screen("...", p1.num_cards(), p2.num_cards(), false, {}, {}, false);
   		
-		char in_game_options;
 		cout<<"What do you want to do? Enter the char 'p' to play a card, 'q' to quit the match\n> ";
 		cin>>in_game_options;
 		while(in_game_options != 'p' && in_game_options != 'q'){
@@ -192,10 +193,24 @@ void play(){
 
     }
 
+	cout<<newpage; //clear screen
+	
+	if(p1.num_cards() == 0 && in_game_options != 'q'){
+		//AI win
+		display_lost();
+		cout<<"Please wait 5 seconds while the game resets...\n";
+		std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //sleep
+	}else if(in_game_options != 'q'){
+		//PLayer win
+		display_win();
+		cout<<"Please wait 5 seconds while the game resets...\n";
+		std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //sleep	
+	}
 
 }
 
 int main(){
+
     //cout<<"Hello world";
     //string test = "test";
     //play();
