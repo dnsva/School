@@ -1,34 +1,31 @@
 
-#ifndef INFO_H
-#define INFO_H
+#ifndef INFO_H //header guard
+#define INFO_H ///guard
 
-#include <iostream>
-#include <queue>
-#include <vector>
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
+#include <iostream>  //input output
+#include <queue>     //to store cards
+#include <vector>    //for shuffling deck
+#include <stdlib.h>  //for random
+#include <stdio.h>   //for random
+#include <time.h>    //for random
 
+using std::vector; //less typing
 
-using std::vector;
-
-struct card{
+struct card{ //card datastructure 
 
     int value; //number on card
     char suit; //suit of card
     
-    card(int value_, char suit_)
+    card(int value_, char suit_)    //card constructor 
     : value(value_), suit(suit_) {} //assign everything as normal
 
-    card() = default; //default 
+    card() = default; //default values 
 
 };
 
+struct player{ //player datastructure 
 
-struct player{
-
-    //The cards the player has 
-    std::queue<card>cards;
+    std::queue<card>cards; //stores the cards the player has
     void print_queue(){
     	
     	std::queue<card>temp = cards;
@@ -80,10 +77,10 @@ void deal_cards(player* p1, player* p2){ //deals cards to each player
    // for(card c : deck) std::cout<<c.suit<<","<<c.value<<" "; std::cout<<"\n";
 
     //SUFFLE DECK
-    shuffled_deck = deck;
+    //shuffled_deck = deck;
     
     
-    /*for(int i = 0; i < 54; ++i){ //randomly generate a pos for each card in deck to place into shuffled deck
+    for(int i = 0; i < 54; ++i){ //randomly generate a pos for each card in deck to place into shuffled deck
     	
         int new_pos = rand()%54;
         //if the new pos is already used, find another one 
@@ -97,12 +94,28 @@ void deal_cards(player* p1, player* p2){ //deals cards to each player
         //std::cout<<"assigned pos\n";
 
     }
-*/
+
     //DISTRIBUTE CARDS
     //Now we add the cards to the queues of p1 and p2 
     //since 54/2 is 27, each player gets 27 cards
-    //(*p1).add_card({5, 'D'});
-    //(*p2).add_card({5, 'H'});
+    /*
+    (*p1).add_card({5, 'D'});
+    (*p2).add_card({5, 'H'});
+    
+    (*p1).add_card({3, 'D'});
+    (*p2).add_card({4, 'H'});
+    (*p1).add_card({5, 'D'});
+    (*p2).add_card({8, 'H'});
+    
+    (*p1).add_card({6, 'D'});
+    (*p2).add_card({6, 'H'});
+    
+    (*p1).add_card({6, 'D'});
+    (*p1).add_card({6, 'D'});
+    (*p1).add_card({6, 'D'});
+    (*p1).add_card({6, 'D'});
+    (*p2).add_card({6, 'H'});*/
+
     
     for(int i = 0; i < 27; ++i){
         (*p1).add_card(shuffled_deck[i]);
@@ -115,4 +128,4 @@ void deal_cards(player* p1, player* p2){ //deals cards to each player
 
 }
 
-#endif
+#endif //guard
