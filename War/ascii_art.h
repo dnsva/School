@@ -1,18 +1,18 @@
 
-#include <iostream>
-#include <string>
+#include <iostream> //cout
 
-using std::cout;
+using std::cout; //less typing 
 
-//misc ascii art
+//-------------------------------------------------------------------------------------------------------------
+
+/*THE FOLLOWING DEFINES ANSI ART SHORTCUTS*/
+
 #define reset "\033[0m"
-
-
 #define newpage "\033[2J"
 #define setblinking "\033[25m"
 
+
 //COLOURS
-// #define background "\033[48;5;153m"
 
 //FOREGROUND
 #define light_purple "\033[38;5;189m"
@@ -23,13 +23,16 @@ using std::cout;
 
 //BACKGROUND
 #define skin_tone "\033[48;5;223m"
-
 #define background2 "\033[48;5;214m"
 #define card_back "\033[48;5;124m"
 #define card_front "\033[48;5;218m"
 #define border "\033[48;5;195m"
 
-void display_title(){
+//-------------------------------------------------------------------------------------------------------------
+
+/*The following functions display ascii art*/
+
+void display_title(){ //The title (WAR)
     cout<<orange;
     cout<<" █     █░ ▄▄▄       ██▀███   \n";
     cout<<"▓█░ █ ░█░▒████▄    ▓██ ▒ ██▒ \n";
@@ -42,7 +45,7 @@ void display_title(){
     cout<<"    ░          ░  ░   ░      \n";
 }
 
-void display_win(){
+void display_win(){ //Winning screen (YOU WIN)
     cout<<light_yellow;
     cout<<"██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗ \n";
     cout<<"╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║ \n";
@@ -52,7 +55,7 @@ void display_win(){
     cout<<"   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝ \n";
 }
 
-void display_lost(){
+void display_lost(){ //Losing screen (YOU LOSE) 
 	cout<<light_yellow;
     cout<<"██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗███████╗ \n";
     cout<<"╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║     ██╔═══██╗██╔════╝██╔════╝ \n";
