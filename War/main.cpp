@@ -229,94 +229,90 @@ void play(){ //main function that plays the game
                 	break; //get out of loop                                                                                         |
 				}                                                                                                                  //|
 				//------------------------------------------------------------------------------------------------------------------
+				
+				WAR_cards_from_p1.push_back(p1.play_card()); //play face down card & save
+				WAR_cards_from_p1.push_back(p1.play_card()); //play face down card & save
+				WAR_cards_from_p2.push_back(p2.play_card()); //play face down card & save
+				WAR_cards_from_p2.push_back(p2.play_card()); //play face down card & save 
 
-				WAR_cards_from_p1.push_back(p1.play_card());
-				WAR_cards_from_p1.push_back(p1.play_card());
-				WAR_cards_from_p2.push_back(p2.play_card());
-				WAR_cards_from_p2.push_back(p2.play_card());
+                player_card = p2.play_card(); //play face up card
+                ai_card = p1.play_card();     //play face up card
 
-                player_card = p2.play_card();
-                ai_card = p1.play_card();
+                WAR_cards_from_p1.push_back(ai_card);     //save face up card
+                WAR_cards_from_p2.push_back(player_card); //save face up card
                 
-                WAR_cards_from_p1.push_back(ai_card);
-                WAR_cards_from_p2.push_back(player_card);
-                
-                update_screen("Cards played", p1.num_cards(), p2.num_cards(), true, ai_card, player_card, false);
-                //add extra sleep 
-        		std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+				//Pretend to play two cards, then play third (display) -------------------------------------------------------
+				update_screen("...", p1.num_cards(), p2.num_cards(), false, {}, {}, false); //display                        |
+				update_screen("...", p1.num_cards(), p2.num_cards(), false, {}, {}, true);  //display                        |
+				update_screen("...", p1.num_cards(), p2.num_cards(), false, {}, {}, false); //display                        |
+				update_screen("...", p1.num_cards(), p2.num_cards(), false, {}, {}, false); //display                        |
+                update_screen("Cards played", p1.num_cards(), p2.num_cards(), true, ai_card, player_card, false); //display  |
+        		std::this_thread::sleep_for(std::chrono::milliseconds(1500)); //add extra sleep                              |
+				//------------------------------------------------------------------------------------------------------------
             }
             
-            if(enough_cards){
-            	cout<<background2<<deep_blue<<"THE REVEAL"<<reset<<"\n";
-            	
-            	cout<<background2<<deep_blue<<"ALL THE CARDS PLAYED BY THE AI WERE..."<<reset<<"\n";
-                for(card c: WAR_cards_from_p1){
-                	cout<<"\t"<<c.suit<<" ";
-                	if(c.value < 11){
-                		cout<<c.value;
-					}else if(c.value = 11){
-						cout<<"J";
-					}else if(c.value == 12){
-						cout<<"Q";
-					}else if(c.value == 13){
-						cout<<"K";
-					}else if(c.value == 14){
-						cout<<"A";
-					}else{
+            if(enough_cards){ //If war was successful reveal all the cards
+            	cout<<background2<<deep_blue<<"THE REVEAL"<<reset<<"\n"; //output
+            	cout<<background2<<deep_blue<<"ALL THE CARDS PLAYED BY THE AI WERE..."<<reset<<"\n"; //output
+                for(card c: WAR_cards_from_p1){ //for each ai card
+                	cout<<"\t"<<c.suit<<" "; //output suit
+                	if(c.value < 11){ //if 2-10
+                		cout<<c.value; //output 
+					}else if(c.value = 11){ //if jack
+						cout<<"J"; //output 
+					}else if(c.value == 12){ //if queen
+						cout<<"Q"; //output 
+					}else if(c.value == 13){ //if king 
+						cout<<"K"; //output 
+					}else if(c.value == 14){ //if ace 
+						cout<<"A"; //output 
+					}else{ //if joker 
 						cout<<"JOKER";
 					}
-					cout<<"\n";
+					cout<<"\n"; //newline 
 				}
-				
-				cout<<background2<<deep_blue<<"ALL THE CARDS PLAYED BY YOU WERE..."<<reset<<"\n";
-				for(card c: WAR_cards_from_p2){
+				cout<<background2<<deep_blue<<"ALL THE CARDS PLAYED BY YOU WERE..."<<reset<<"\n"; //output
+				for(card c: WAR_cards_from_p2){ //for each player card
                 	cout<<"\t"<<c.suit<<" ";
-                	if(c.value < 11){
-                		cout<<c.value;
-					}else if(c.value = 11){
-						cout<<"J";
-					}else if(c.value == 12){
-						cout<<"Q";
-					}else if(c.value == 13){
-						cout<<"K";
-					}else if(c.value == 14){
-						cout<<"A";
-					}else{
+                	if(c.value < 11){ //if 2-10
+                		cout<<c.value; //output 
+					}else if(c.value = 11){ //if jack
+						cout<<"J"; //output 
+					}else if(c.value == 12){ //if queen
+						cout<<"Q"; //output 
+					}else if(c.value == 13){ //if king 
+						cout<<"K"; //output 
+					}else if(c.value == 14){ //if ace 
+						cout<<"A"; //output 
+					}else{ //if joker 
 						cout<<"JOKER";
 					}
-					cout<<"\n";
+					cout<<"\n"; //new line 
 				}
-				
-				cout<<light_purple<<"(wait 8.7 seconds for this to close...)"<<reset<<"\n";
-				std::this_thread::sleep_for(std::chrono::milliseconds(8700));
+				cout<<light_purple<<"(wait 8.7 seconds for this to close...)"<<reset<<"\n"; //output
+				std::this_thread::sleep_for(std::chrono::milliseconds(8700)); //sleep
 			}
 
-            //Now since we've dealt with the war, we act like norm
-            if(player_card.value > ai_card.value && enough_cards){
-                p2.add_card(player_card);
-                p2.add_card(ai_card);
-                for(card c : WAR_cards_from_p1){
-                	p2.add_card(c);
+            //NOW THAT WE HAVE DEALT WITH THE WAR WE ACT LIKE NORMAL
+            if(player_card.value > ai_card.value && enough_cards){ //if player value is > 
+                for(card c : WAR_cards_from_p1){ //for each ai card played
+                	p2.add_card(c); //add them 
 				}
-				for(card c : WAR_cards_from_p2){
-                	p2.add_card(c);
+				for(card c : WAR_cards_from_p2){ //for each player card played
+                	p2.add_card(c); //add them 
 				}
-                update_screen("AI TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false);
-           		//add extra sleep 
-            	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-            }else if(player_card.value < ai_card.value && enough_cards){
-                p1.add_card(player_card);
-                p1.add_card(ai_card);
-                for(card c : WAR_cards_from_p1){
-                	p1.add_card(c);
+                update_screen("AI TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false); //display
+            	std::this_thread::sleep_for(std::chrono::milliseconds(1000));//add extra sleep 
+
+            }else if(player_card.value < ai_card.value && enough_cards){ //if player value is < 
+                for(card c : WAR_cards_from_p1){ //for each card ai played
+                	p1.add_card(c); //add them
 				}
-				for(card c : WAR_cards_from_p2){
-                	p1.add_card(c);
+				for(card c : WAR_cards_from_p2){ //for each player card played 
+                	p1.add_card(c); //add them 
 				}
-                update_screen("PLAYER TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false);
-                
-           		//add extra sleep 
-            	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                update_screen("PLAYER TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false); //display
+            	std::this_thread::sleep_for(std::chrono::milliseconds(1000)); //add extra sleep 
             }
            
 
@@ -326,15 +322,13 @@ void play(){ //main function that plays the game
 
 	cout<<newpage; //clear screen
 	
-	if(p1.num_cards() == 0 && in_game_options != 'q'){
-		//You win 
-		display_win();
-		cout<<"Please wait 5 seconds while the game resets...\n";
+	if(p1.num_cards() == 0 && in_game_options != 'q'){ //you win 
+		display_win(); //ascii 
+		cout<<"Please wait 5 seconds while the game resets...\n"; //output 
 		std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //sleep
-	}else if(in_game_options != 'q'){
-		//Ai win 
-		display_lost();
-		cout<<"Please wait 5 seconds while the game resets...\n";
+	}else if(in_game_options != 'q'){ //ai wins 
+		display_lost(); //ascii
+		cout<<"Please wait 5 seconds while the game resets...\n"; //output 
 		std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //sleep	
 	}
 
