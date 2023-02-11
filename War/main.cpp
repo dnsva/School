@@ -1,50 +1,104 @@
 
-#include <iostream>
-#include <thread>
-#include <chrono>
-#include "info.h"
-#include "display.h"
+#include <iostream>  //i/o
+#include <thread>    //sleep 
+#include <chrono>    //sleep
+#include "info.h"    //classes
+#include "display.h" //displays
 
-#include "ascii_stuff.h"
-
+#include "enable_ansi.h" //allows ansi codes 
 #ifdef _WIN32
-	bool ok = init_term();
+	bool ok = init_term(); //if were on windows
 #endif
 
+using namespace std; //less typing 
 
-using namespace std;
+//FUNCTIONS -------------------------
+void show_rules(); //shows the rules|
+bool quit();       //exits game     |
+void play();       //plays game     |
+//----------------------------------
 
-void show_rules(){
-	cout<<"Look at your browser...\n";
-	ShellExecute(NULL, "open", "https://bicyclecards.com/how-to-play/war",NULL, NULL, SW_SHOWNORMAL);
-	cout<<"You will go back to the main screen in 5 seconds\n";
+//-----------------------------------------------------------------------------------
+
+int main(){ //main - calls other funcs 
+
+ 	cout<<light_purple; //SET THE FOREGROUND COLOR TO BE LIGHT PURPLE
+ 	
+	bool done = false; //tells us whether to run or not 
+	int choice = -1;   //tells us what function to call
+
+	while(!done){ //while not done 
+
+		cout<<newpage; //clear screen 
+		display_title(); //show "WAR"
+		cout<<"(0) - Play\n";      //output
+		cout<<"(1) - See rules\n"; //output
+		cout<<"(2) - Quit\n";      //output
+		cout<<"Enter choice: ";    //prompt
+		cin>>choice;               //get
+
+		while(choice < 0 || choice > 2){ //error check 
+			cout<<"Bad input. Try again: "; //error msg
+			cin>>choice; //get again
+		}
+
+		if(choice == 0){ //if 0 entered
+			play(); //call func 
+		}else if(choice == 1){ //if 1 entered
+			show_rules(); //call func
+		}else{ //if 2 entered
+			done = quit(); //leave
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------------
+
+void show_rules(){ //pulls up the rules 
+	cout<<"Look at your browser...\n"; //output
+	ShellExecute(NULL, "open", "https://bicyclecards.com/how-to-play/war",NULL, NULL, SW_SHOWNORMAL); //open link
+	cout<<"You will go back to the main screen in 5 seconds\n"; //clarification
 	std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //sleep	
 }
 
+//-----------------------------------------------------------------------------------
+
 bool quit(){ //true - yes, quit, false - no, continue 
-	char confirm_quit;
-	cout<<"Are you sure (y/n)? ";
-	cin>>confirm_quit;
-	while(confirm_quit != 'y' && confirm_quit != 'n'){
-		cout<<"Bad input, try again (y/n): ";
-		cin>>confirm_quit;
+	char confirm_quit; //holds confirmation
+	cout<<"Are you sure (y/n)? "; //ask
+	cin>>confirm_quit; //get
+	while(confirm_quit != 'y' && confirm_quit != 'n'){ //error check
+		cout<<"Bad input, try again (y/n): "; //err message
+		cin>>confirm_quit; //get input 
 	}
-	if(confirm_quit == 'y'){
-		return true;
-	}else{
-		return false;
-	}
-	
+	if(confirm_quit == 'y'){ //if yes quit 
+		return true; //return yes 
+	}else{ //if no quit 
+		return false; //return no 
+	}	
 }
 
-void play(){
+//-----------------------------------------------------------------------------------
+
+void play(){ //main function that plays the game 
 
     player p1, p2; //Create players
 	char dominant_hand; //To store dominant hand
-	char in_game_options;
+	char in_game_options; //stores whether we want to keep playing or quit mid game
+	//VARS USED IN MAIN LOOP:
+	card player_card, ai_card; //will store the current cards of ai and player 
+		//Used for WAR
+		vector<card>WAR_cards_from_p1; //all the cards played by p1 (ai)
+		vector<card>WAR_cards_from_p2; //all the cards played by p2 (player)
+		bool enough_cards = true; //boolean to store whether or not there are enough cards to play 
 	
-	cout<<reset<<light_purple;
+
+	//------------------------------------------------------------------------------
 	
+	cout<<reset<<light_purple; //set text to light purple 
+	
+	/* THE FOLLOWING PRINTS (DEALING CARDS...)
+	   VERTICALLY WITH SLEEPS IN BETWEEN      */
 	cout<<newpage; //clear screen
 	cout<<"D\n";
 	cout<<"E\n";
@@ -64,134 +118,118 @@ void play(){
 	cout<<".\n";
 	cout<<".\n";
 	std::this_thread::sleep_for(std::chrono::milliseconds(1000)); //sleep
-	cout<<newpage;
-	//std::this_thread::sleep_for(std::chrono::milliseconds(500)); //sleep
-    deal_cards(&p1, &p2); //Deal cards
-	cout<<"CARDS DEALT...\n";
-	cout<<reset;
+	cout<<newpage; //clear screen 
 	
-    //PLAY
 
-    //which hand (EXTRA) 
-    cout<<"are you left handed or right handed (r/l)?\n> ";
-    cin>>dominant_hand;
-    while(dominant_hand != 'r' && dominant_hand != 'l'){
-        cout<<"bad input, try again: ";
-        cin>>dominant_hand;
+    deal_cards(&p1, &p2); //Deal cards
+	cout<<"CARDS DEALT...\n"; //Output
+	cout<<reset; //Reset any colors
+	
+    //-----------------------------------PLAY---------------------------------
+
+    //ask for dominant hand (used in display.h)
+    cout<<"are you left handed or right handed (r/l)?\n> "; //ask
+    cin>>dominant_hand; //get
+    while(dominant_hand != 'r' && dominant_hand != 'l'){ //err check
+        cout<<"bad input, try again: "; //err message
+        cin>>dominant_hand; //get again 
     }
     right_handed = (dominant_hand == 'r') ? 1:0; //change global var from display.h
  
-    while(p1.num_cards() != 0 && p2.num_cards() != 0){
+    //WHILE NO ONE HAS WON YET -------------------------------------------------
+    while(p1.num_cards() != 0 && p2.num_cards() != 0){ //while neither person has 0 cards
   		
-  		update_screen("...", p1.num_cards(), p2.num_cards(), false, {}, {}, false);
+  		update_screen("...", p1.num_cards(), p2.num_cards(), false, {}, {}, false); //display 
   		
-		cout<<"What do you want to do? Enter the char 'p' to play a card, 'q' to quit the match\n> ";
-		cin>>in_game_options;
-		while(in_game_options != 'p' && in_game_options != 'q'){
-			cout<<"Bad input... Try again\n> ";
-			cin>>in_game_options;
+		cout<<"What do you want to do? Enter the char 'p' to play a card, 'q' to quit the match\n> "; //ask
+		cin>>in_game_options; //get
+		while(in_game_options != 'p' && in_game_options != 'q'){ //err check 
+			cout<<"Bad input... Try again\n> "; //err msg
+			cin>>in_game_options; //get again 
 		}
-		if(in_game_options == 'q'){
-			break;
+		if(in_game_options == 'q'){ //if quit
+			break; //get out of loop
 		} //else just continue 
   		
-  		update_screen("About to play card...", p1.num_cards(), p2.num_cards(), false, {}, {}, true);
+  		update_screen("About to play card...", p1.num_cards(), p2.num_cards(), false, {}, {}, true); //display 
   		
-        card player_card, ai_card;
-        player_card = p1.play_card();
-        ai_card = p2.play_card();
-       // cout<<"\tp1 played "<<player_card.suit<<", "<<player_card.value<<"\n";
-        //cout<<"\tp2 played "<<ai_card.suit<<", "<<ai_card.value<<"\n";
+        player_card = p1.play_card(); //play a card
+        ai_card = p2.play_card();     //play a card 
         
-        update_screen("Cards played", p1.num_cards(), p2.num_cards(), true, ai_card, player_card, false);
-        //add extra sleep 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1500));
-            
-        //DISPLAY
-    	//update_screen("test", p1.num_cards(), p2.num_cards(), false, player_card, ai_card, false);
-    	//-----------------
+        update_screen("Cards played", p1.num_cards(), p2.num_cards(), true, ai_card, player_card, false); //display
+        std::this_thread::sleep_for(std::chrono::milliseconds(1500)); //add extra sleep 
 
-        if(player_card.value > ai_card.value){
-            p2.add_card(player_card);
-            p2.add_card(ai_card);
-            update_screen("PLAYER TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false);
-            //add extra sleep 
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-            //cout<<"\tp1 took cards\n";
-        }else if(player_card.value < ai_card.value){
-            p1.add_card(player_card);
-            p1.add_card(ai_card);
-            update_screen("AI TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false);
-            //add extra sleep 
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-            //cout<<"\tp2 took cards\n";
-        }else{
-        	
-        	//cout<<"Would be a war but we end the prog here for now \n";
-        	//return;
-        	
+        if(player_card.value > ai_card.value){ //IF PLAYER HAS A GREATER CARD VALUE 
+            p2.add_card(player_card); //add own card back 
+            p2.add_card(ai_card);     //take ai card
+            update_screen("PLAYER TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false); //display
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000)); //add extra sleep
+          
+        }else if(player_card.value < ai_card.value){ //IF AI HAS A GREATER CARD VALUE 
+            p1.add_card(player_card); //take player card
+            p1.add_card(ai_card);     //add own card back 
+            update_screen("AI TAKES CARDS", p1.num_cards(), p2.num_cards(), false, ai_card, player_card, false); //display
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000)); //add extra sleep
+
+        }else{ //IF THE CARDS ARE THE SAME VALUE!!!!!!!!!!!!!!!!!!!!!!!!
             
             //WAR
-            vector<card>WAR_cards_from_p1;
-            vector<card>WAR_cards_from_p2;
-            bool enough_cards = true;
 
-            while(player_card.value == ai_card.value){
+            while(player_card.value == ai_card.value){ //While there is a war (accounts for double war)
        
-	            cout<<"P1 - ...\n";
-	            std::this_thread::sleep_for(std::chrono::milliseconds(900));
-	            cout<<"P2 - Whats this?\n";
-	            std::this_thread::sleep_for(std::chrono::milliseconds(900));
-	            cout<<"P1 - I think...\n";
-	            std::this_thread::sleep_for(std::chrono::milliseconds(900));
-	            
-	            if(WAR_cards_from_p1.size() > 0){
-	            	cout<<"P2 - Not again?!?!\n";
-	            	std::this_thread::sleep_for(std::chrono::milliseconds(900));
+	   			/* The following outputs text and sleeps------------------------------------------------*/
+	            cout<<"P1 - ...\n"; //output                                                             |
+	            std::this_thread::sleep_for(std::chrono::milliseconds(900)); //sleep                     |
+	            cout<<"P2 - What's this?\n"; //o                                                         | 
+	            std::this_thread::sleep_for(std::chrono::milliseconds(900)); //s                         |
+	            cout<<"P1 - I think...\n";  //o                                                          |
+	            std::this_thread::sleep_for(std::chrono::milliseconds(900)); //s                         |
+	            if(WAR_cards_from_p1.size() > 0){ //WE CHECK IF THIS IS A DOUBLE/TRIBLE/ETC. WAR         |
+	            	cout<<"P2 - Not again?!?!\n"; //extra output                                         |
+	            	std::this_thread::sleep_for(std::chrono::milliseconds(900)); //s                     | 
+				}                                                                                      //|
+	            cout<<"WAR!!!!!!!!\n"; //o                                                               |
+	            std::this_thread::sleep_for(std::chrono::milliseconds(2500)); //s                        |
+	            cout<<newpage; //clear screen                                                            |
+				//---------------------------------------------------------------------------------------
+
+
+				update_screen("WAR", p1.num_cards(), p2.num_cards(), true, ai_card, player_card, false); //display "WAR"
+				cout<<"What do you want to do? Enter the char 'p' to play cards, 'q' to quit the match\n> "; //ask
+				cin>>in_game_options; //get
+				while(in_game_options != 'p' && in_game_options != 'q'){ //err check 
+					cout<<"Bad input... Try again\n> "; //err msg
+					cin>>in_game_options; //get again
 				}
 				
-	            cout<<"WAR!!!!!!!!\n";
-	            std::this_thread::sleep_for(std::chrono::milliseconds(2500));
-	            cout<<newpage; //clear screen 
-				
-				update_screen("WAR", p1.num_cards(), p2.num_cards(), true, ai_card, player_card, false); 
-				cout<<"What do you want to do? Enter the char 'p' to play cards, 'q' to quit the match\n> ";
-				cin>>in_game_options;
-				while(in_game_options != 'p' && in_game_options != 'q'){
-					cout<<"Bad input... Try again\n> ";
-					cin>>in_game_options;
-				}
-				
-				update_screen("About to play cards (2 face down, 1 up) ...", p1.num_cards(), p2.num_cards(), false, {}, {}, true);
-				//add extra sleep 
-       			std::this_thread::sleep_for(std::chrono::milliseconds(900));
-                //2 cards down each unless someone doesnt have enough cards
-                //if they dont have enough cards they just put out whatever they have
-                
-                if(p1.num_cards() < 3){
-                	update_screen("AI DOES NOT HAVE ENOUGH CARDS", p1.num_cards(), p2.num_cards(), false, {}, {}, false);
-                	std::this_thread::sleep_for(std::chrono::milliseconds(900));
-                	update_screen("YOU AUTOMATICALLY WIN", p1.num_cards(), p2.num_cards(), false, {}, {}, false);
-                	std::this_thread::sleep_for(std::chrono::milliseconds(900));
-                	for(int left_over = 0; left_over < p1.num_cards(); ++left_over){
-                		p1.cards.pop();
-					}
-                	enough_cards = false;
-                	break;
-				}
-				
-				if(p2.num_cards() < 3){
-					update_screen("YOU DO NOT HAVE ENOUGH CARDS", p1.num_cards(), p2.num_cards(), false, {}, {}, false);
-					std::this_thread::sleep_for(std::chrono::milliseconds(900));
-                	update_screen("AI AUTOMATICALLY WINS", p1.num_cards(), p2.num_cards(), false, {}, {}, false);
-                	std::this_thread::sleep_for(std::chrono::milliseconds(900));
-                	for(int left_over = 0; left_over < p2.num_cards(); ++left_over){
-                		p2.cards.pop();
-					}
-                	enough_cards = false;
-                	break;
-				}
-				
+				update_screen("About to play cards (2 face down, 1 up) ...", p1.num_cards(), p2.num_cards(), false, {}, {}, true); //display
+       			std::this_thread::sleep_for(std::chrono::milliseconds(900)); //add extra sleep 
+
+                //IF YOU DO NOT HAVE ENOUGH CARDS (under 3), YOU LOSE ---------------------------------------------------------------
+                if(p1.num_cards() < 3){ //if ai not enough                                                                           |
+                	update_screen("AI DOES NOT HAVE ENOUGH CARDS", p1.num_cards(), p2.num_cards(), false, {}, {}, false); //display  |
+                	std::this_thread::sleep_for(std::chrono::milliseconds(900)); //sleep                                             |
+                	update_screen("YOU AUTOMATICALLY WIN", p1.num_cards(), p2.num_cards(), false, {}, {}, false); //display          |
+                	std::this_thread::sleep_for(std::chrono::milliseconds(900)); //sleep                                             |
+                	for(int left_over = 0; left_over < p1.num_cards(); ++left_over){  //go through anything remaining                |
+                		p1.cards.pop(); //remove from queue                                                                          |
+					}                                                                                                              //|
+                	enough_cards = false; //change boolean                                                                           |
+                	break; //get out of loop                                                                                         |
+				}                                                                                                                  //|
+				if(p2.num_cards() < 3){ //if you not enough                                                                          |
+					update_screen("YOU DO NOT HAVE ENOUGH CARDS", p1.num_cards(), p2.num_cards(), false, {}, {}, false); //display   |
+					std::this_thread::sleep_for(std::chrono::milliseconds(900)); //sleep                                             |
+                	update_screen("AI AUTOMATICALLY WINS", p1.num_cards(), p2.num_cards(), false, {}, {}, false); //display          |
+                	std::this_thread::sleep_for(std::chrono::milliseconds(900)); //sleep                                             |
+                	for(int left_over = 0; left_over < p2.num_cards(); ++left_over){ //go through anything remaining                 |
+                		p2.cards.pop(); //remove from queue                                                                          |
+					}                                                                                                              //|
+                	enough_cards = false; //change bool                                                                              |
+                	break; //get out of loop                                                                                         |
+				}                                                                                                                  //|
+				//------------------------------------------------------------------------------------------------------------------
+
 				WAR_cards_from_p1.push_back(p1.play_card());
 				WAR_cards_from_p1.push_back(p1.play_card());
 				WAR_cards_from_p2.push_back(p2.play_card());
@@ -302,43 +340,4 @@ void play(){
 
 }
 
-int main(){
-
-    //cout<<"Hello world";
-    //string test = "test";
-    //play();
-    //              note  cards p1, cards p2, 
-    //update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, true);
-    //update_screen("test", 3, 14, false, {4, 'D'}, {5, 'H'}, false);
- 
- 	//SET THE FOREGROUND COLOR TO BE LIGHT PURPLE
- 	cout<<light_purple;
- 	
- 	
- 	
-	bool done = false;
-	int choice = -1;
-	while(!done){
-		cout<<newpage; //get new page 
-		//cout<<deep_blue<<"\x1b[5m";
-		display_title();
-		cout<<"(0) - Play\n";
-		cout<<"(1) - See rules\n";
-		cout<<"(2) - Quit\n";
-		cout<<"Enter choice: ";
-		cin>>choice;
-		while(choice < 0 || choice > 2){
-			cout<<"Bad input. Try again: ";
-			cin>>choice;
-		}
-		if(choice == 0){
-			play();
-		}else if(choice == 1){
-			show_rules();
-		}else{
-			done = quit();
-		}
-	}
-}
-
-//update_screen( note, num_cards_P1, num_cards_P2, face_up?(bool), card_played_P1, card_played_P2, hand_covering? )
+//-----------------------------------------------------------------------------------
