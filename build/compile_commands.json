@@ -1,7 +1,7 @@
 [
 {
-  "directory": "/Users/anna/Desktop/main/schoolcode/School/build",
-  "command": "/usr/bin/clang++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -o CMakeFiles/test.dir/main.cpp.o -c /Users/anna/Desktop/main/schoolcode/School/War/main.cpp",
-  "file": "/Users/anna/Desktop/main/schoolcode/School/War/main.cpp"
+  "directory": "/Users/anna/Documents/main/schoolcode/School/build",
+  "command": "/usr/bin/clang++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -o CMakeFiles/test.dir/main.cpp.o -c /Users/anna/Documents/main/schoolcode/School/War/main.cpp",
+  "file": "/Users/anna/Documents/main/schoolcode/School/War/main.cpp"
 }
 ]

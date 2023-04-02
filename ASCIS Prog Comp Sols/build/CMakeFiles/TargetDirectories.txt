@@ -1,7 +1,0 @@
-/Users/anna/Documents/main/schoolcode/School/ASCIS Prog Comp Sols/build/CMakeFiles/a.dir
-/Users/anna/Documents/main/schoolcode/School/ASCIS Prog Comp Sols/build/CMakeFiles/b.dir
-/Users/anna/Documents/main/schoolcode/School/ASCIS Prog Comp Sols/build/CMakeFiles/c.dir
-/Users/anna/Documents/main/schoolcode/School/ASCIS Prog Comp Sols/build/CMakeFiles/d.dir
-/Users/anna/Documents/main/schoolcode/School/ASCIS Prog Comp Sols/build/CMakeFiles/e.dir
-/Users/anna/Documents/main/schoolcode/School/ASCIS Prog Comp Sols/build/CMakeFiles/edit_cache.dir
-/Users/anna/Documents/main/schoolcode/School/ASCIS Prog Comp Sols/build/CMakeFiles/rebuild_cache.dir
