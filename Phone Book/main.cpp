@@ -473,6 +473,9 @@ void search_contact(){ //find people by name
 
     for (int i = 0; i < 5; i++){ //for each person
         found = true; //for now 
+        if(search_name.length() != strlen(people[i].name)){ //if diff lengths
+            found = false;
+        }
         for(int j = 0; j<strlen(people[i].name); ++j){ //for each character
             at_least_1_person = true; //self explanatory
             if(j >= search_name.length()){ //so as to not go out of bounds
